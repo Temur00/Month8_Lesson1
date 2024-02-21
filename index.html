@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>List of Students</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <!-- MODAL / TO ADD -->
+    <div
+      class="modal fade"
+      id="addModal"
+      tabindex="-1"
+      aria-labelledby="addModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="addModalLabel">
+              Student Information !
+            </h1>
+
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="mb-2">
+                <label for="firstName" class="form-label">Firstname</label>
+                <input
+                  type="text"
+                  id="firstName"
+                  name="firstName"
+                  class="form-control"
+                  required
+                />
+              </div>
+              <div class="mb-2">
+                <label for="lastName" class="form-label">Lastname</label>
+                <input
+                  type="text"
+                  id="lastName"
+                  name="lastName"
+                  class="form-control"
+                />
+              </div>
+              <div class="mb-2">
+                <label for="group" class="form-label"
+                  >Select your country</label
+                >
+                <select
+                  name="group"
+                  id="group"
+                  class="form-select d-block w-40"
+                >
+                  <option value="Select your country">
+                    Select your country
+                  </option>
+                  <option value="Uzbekistan">Uzbekistan</option>
+                  <option value="Germany">Germany</option>
+                  <option value="USA">USA</option>
+                  <option value="Malaysia">Malaysia</option>
+                  <option value="Canada">Canada</option>
+                  <option value="Finland">Finland</option>
+                  <option value="UK">UK</option>
+                  <option value="North Korea">North Korea</option>
+                </select>
+              </div>
+              <div class="mb-2 d-flex">
+                <div class="d-block w-100 g-2">
+                  <label for="dateOfBirth">Date of Birth</label>
+                  <input
+                    id="dateOfBirth"
+                    type="date"
+                    class="form-control birtDate w-75 mt-1 p-1"
+                  />
+                </div>
+                <div class="d-block w-100 g-2">
+                  <label for="typeOfJob">Type of job</label>
+                  <select
+                    name="typeOfJob"
+                    id="typeOfJob"
+                    class="form-select m-group d-block w-100 mt-1 p-1"
+                  >
+                    <option value="UX/UI Designer">UX/UI Designer</option>
+                    <option value="Front-end Developer">
+                      Front-end Developer
+                    </option>
+                    <option value="Back-end Developer">
+                      Back-end Developer
+                    </option>
+                    <option value="Security Analyst">Security Analyst</option>
+                    <option value="Full-stack Developer">
+                      Full-stack Developer
+                    </option>
+                    <option value="Game Developer">Game Developer</option>
+                  </select>
+                </div>
+              </div>
+              <div class="mb-2 d-flex">
+                <div class="d-block w-100 g-2">
+                  <label for="salary">Salary ($)</label>
+                  <input
+                    type="number"
+                    class="form-control w-75 mt-1 d-block p-1"
+                    id="salary"
+                  />
+                </div>
+                <div class="d-block w-100 g-2">
+                  <label for="Select">Select a level</label>
+                  <select
+                    name="filter"
+                    id="filter"
+                    class="form-select d-block w-100 mt-1 p-1"
+                  >
+                    <option value="Junior">Junior</option>
+                    <option value="Middle">Middle</option>
+                    <option value="Senior">Senior</option>
+                  </select>
+                </div>
+              </div>
+
+              <!-- CHECKBOX -->
+              <div class="mb-2 g-2 d-flex">
+                <input
+                  type="checkbox"
+                  name="isMarried"
+                  id="isMarried"
+                  class="form-check-input"
+                />
+                <label for="isMarried" class="form-check-label px-2">
+                  Is he/she married ?</label
+                >
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            >
+              Close
+            </button>
+            <button
+              type="button"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+              class="btn btn-primary"
+              id="btn-add-student"
+            >
+              Add
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODAL / EDIT -->
+    <div
+      class="modal fade"
+      id="editModal"
+      tabindex="-1"
+      aria-labelledby="editModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="editModalLabel">
+              Edit Student details
+            </h1>
+
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="mb-2">
+                <label for="firstNameEdit" class="form-label">Firstname</label>
+                <input
+                  type="text"
+                  id="firstNameEdit"
+                  name="firstNameEdit"
+                  class="form-control p-2"
+                />
+              </div>
+              <div class="mb-2">
+                <label for="lastNameEdit" class="form-label">Lastname</label>
+                <input
+                  type="text"
+                  id="lastNameEdit"
+                  name="lastNameEdit"
+                  class="form-control"
+                />
+              </div>
+              <div class="mb-2">
+                <label for="groupEdit" class="form-label"
+                  >Select your country</label
+                >
+                <select
+                  name="groupEdit"
+                  id="groupEdit"
+                  class="form-select d-block w-40"
+                >
+                  <option value="Select your country">
+                    Select your country
+                  </option>
+                  <option value="Uzbekistan">Uzbekistan</option>
+                  <option value="Germany">Germany</option>
+                  <option value="USA">USA</option>
+                  <option value="Malaysia">Malaysia</option>
+                  <option value="Canada">Canada</option>
+                  <option value="Finland">Finland</option>
+                  <option value="UK">UK</option>
+                  <option value="North Korea">North Korea</option>
+                </select>
+              </div>
+              <div class="mb-2 d-flex">
+                <div class="d-block w-100 g-2">
+                  <label for="dateOfBirthEdit">Date of Birth</label>
+                  <input
+                    id="dateOfBirthEdit"
+                    type="date"
+                    class="form-control birtDate w-75 mt-1 p-1"
+                  />
+                </div>
+                <div class="d-block w-100 g-2">
+                  <label for="typeOfJobEdit">Type of job</label>
+                  <select
+                    name="typeOfJobEdit"
+                    id="typeOfJobEdit"
+                    class="form-select m-group d-block w-100 mt-1 p-1"
+                  >
+                    <option value="UX/UI Designer">UX/UI Designer</option>
+                    <option value="Front-end Developer">
+                      Front-end Developer
+                    </option>
+                    <option value="Back-end Developer">
+                      Back-end Developer
+                    </option>
+                    <option value="Security Analyst">Security Analyst</option>
+                    <option value="Full-stack Developer">
+                      Full-stack Developer
+                    </option>
+                    <option value="Game Developer">Game Developer</option>
+                  </select>
+                </div>
+              </div>
+              <div class="mb-2 d-flex">
+                <div class="d-block w-100 g-2">
+                  <label for="salaryEdit">Salary ($)</label>
+                  <input
+                    type="number"
+                    class="form-control w-75 mt-1 d-block p-1"
+                    id="salaryEdit"
+                  />
+                </div>
+                <div class="d-block w-100 g-2">
+                  <label for="SelectEdit">Select a level</label>
+                  <select
+                    name="filterLevelEdit"
+                    id="filterLevelEdit"
+                    class="form-select d-block w-100 mt-1 p-1"
+                  >
+                    <option value="Junior">Junior</option>
+                    <option value="Middle">Middle</option>
+                    <option value="Senior">Senior</option>
+                  </select>
+                </div>
+              </div>
+
+              <!-- CHECKBOX -->
+              <div class="mb-2 g-2 d-flex">
+                <input
+                  type="checkbox"
+                  name="isMarriedEdit"
+                  id="isMarriedEdit"
+                  class="form-check-input"
+                />
+                <label for="isMarriedEdit" class="form-check-label px-2">
+                  Is he/she married ?</label
+                >
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            >
+              Close
+            </button>
+            <button
+              type="button"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+              class="btn btn-primary"
+              id="btn-edit-student"
+            >
+              Add
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MAIN -->
+    <div class="container">
+      <div class="row">
+        <div class="col col-7 py-3">
+          <input
+            type="text"
+            id="search"
+            name="search"
+            class="form-control p-2"
+            placeholder="Full Name"
+          />
+        </div>
+        <div class="col col-5 d-flex gap-2 py-3">
+          <select
+            name="filter-select"
+            id="filter-select"
+            class="form-select bg-primary text-light d-block w-40"
+          >
+            <option value="Select a level">Select a level</option>
+            <option value="Junior">Junior</option>
+            <option value="Middle">Middle</option>
+            <option value="Senior">Senior</option>
+          </select>
+          <select
+            name="filter-country"
+            id="filter-country"
+            class="form-select bg-secondary text-light d-block w-40"
+          >
+            <option value="Select your country">Select your country</option>
+            <option value="Uzbekistan">Uzbekistan</option>
+            <option value="Germany">Germany</option>
+            <option value="USA">USA</option>
+            <option value="Malaysia">Malaysia</option>
+            <option value="Canada">Canada</option>
+            <option value="Finland">Finland</option>
+            <option value="UK">UK</option>
+            <option value="North Korea">North Korea</option>
+          </select>
+          <button
+            class="btn btn-success d-block w-20"
+            data-bs-toggle="modal"
+            data-bs-target="#addModal"
+          >
+            Add
+          </button>
+        </div>
+      </div>
+      <div class="row">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>No</th>
+              <th>Name</th>
+              <th>Surname</th>
+              <th>Country</th>
+              <th>Date of birth</th>
+              <th>Position</th>
+              <th>Type of job</th>
+              <th>Salary ($)</th>
+              <th>Is he/she married ?</th>
+              <th>Activity</th>
+            </tr>
+          </thead>
+          <tbody id="students-list">
+            <!-- <tr>
+              <td>1</td>
+              <td>Linus</td>
+              <td>Torvalds</td>
+              <td>Finland</td>
+              <td>1969-12-28</td>
+              <td>Senior</td>
+              <td>Full-stack Developer</td>
+              <td>125 000</td>
+              <td>Yes</td>
+              <td>
+                <button class="btn bg-primary btn-sm text-light">Edit</button>
+                <button class="btn btn-danger btn-sm">Delete</button>
+              </td>
+            </tr> -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <!-- LINKS -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+      crossorigin="anonymous"
+    ></script>
+    <script src="./main.js"></script>
+  </body>
+</html>
